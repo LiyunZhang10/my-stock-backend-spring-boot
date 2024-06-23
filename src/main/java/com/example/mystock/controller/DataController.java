@@ -27,7 +27,6 @@ public class DataController {
             goldDataService.fetchAndStoreGoldData();
             System.out.println("Fetching USD/CNH data...");
             usdchnDataService.fetchAndStoreUsdchnData();
-            System.out.println("Data fetched and stored successfully");
         } catch (Exception e) {
             System.err.println("Error fetching data: " + e.getMessage());
         }
