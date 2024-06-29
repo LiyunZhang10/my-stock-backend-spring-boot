@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -33,12 +34,14 @@ public class DataController {
     }
 
     @GetMapping("/latest-gold-data")
-    public GoldData getLatestGoldData() {
-        return goldDataService.getLatestGoldData();
+    public List<GoldData> getLatestGoldData() {
+        System.out.println("Accessing latest gold data");
+        return goldDataService.getLatestGoldData(50);
     }
 
     @GetMapping("/latest-usdchn-data")
-    public UsdchnData getLatestUsdchnData() {
-        return usdchnDataService.getLatestUsdchnData();
+    public List<UsdchnData> getLatestUsdchnData() {
+        System.out.println("Accessing latest usdchn data");
+        return usdchnDataService.getLatestUsdchnData(50);
     }
 }

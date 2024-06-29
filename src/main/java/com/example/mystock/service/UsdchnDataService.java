@@ -4,7 +4,10 @@ import com.example.mystock.entity.UsdchnData;
 import com.example.mystock.repository.UsdchnDataRepository;
 import com.example.mystock.utils.SeleniumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class UsdchnDataService {
@@ -24,5 +27,10 @@ public class UsdchnDataService {
 
     public UsdchnData getLatestUsdchnData() {
         return usdchnDataRepository.findTopByOrderByTimestampDesc();
+    }
+
+    public List<UsdchnData> getLatestUsdchnData(int limit) {
+        Pageable pageable = PageRequest.of(0, limit);
+        return usdchnDataRepository.findLatestUsdchnData(pageable);
     }
 }

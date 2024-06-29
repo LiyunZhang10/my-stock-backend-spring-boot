@@ -7,7 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.PageLoadStrategy;
 
+import java.time.Duration;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
@@ -53,7 +55,10 @@ public class SeleniumUtils {
         try {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless");
+            options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
             driver = new RemoteWebDriver(new URL(SELENIUM_GRID_URL), options);
+            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
             driver.get(url);
 
             WebElement priceElement = driver.findElement(By.cssSelector(priceSelector));

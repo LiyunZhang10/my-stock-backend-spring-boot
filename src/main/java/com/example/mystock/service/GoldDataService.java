@@ -4,7 +4,10 @@ import com.example.mystock.entity.GoldData;
 import com.example.mystock.repository.GoldDataRepository;
 import com.example.mystock.utils.SeleniumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class GoldDataService {
@@ -24,5 +27,10 @@ public class GoldDataService {
 
     public GoldData getLatestGoldData() {
         return goldDataRepository.findTopByOrderByTimestampDesc();
+    }
+
+    public List<GoldData> getLatestGoldData(int limit) {
+        Pageable pageable = PageRequest.of(0, limit);
+        return goldDataRepository.findLatestGoldData(pageable);
     }
 }
