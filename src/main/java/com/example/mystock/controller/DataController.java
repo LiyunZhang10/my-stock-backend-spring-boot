@@ -2,6 +2,8 @@ package com.example.mystock.controller;
 
 import com.example.mystock.entity.GoldData;
 import com.example.mystock.entity.UsdchnData;
+import com.example.mystock.entity.NvdaStock;
+import com.example.mystock.service.NvdaStockService;
 import com.example.mystock.service.GoldDataService;
 import com.example.mystock.service.UsdchnDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,27 +23,35 @@ public class DataController {
     @Autowired
     private UsdchnDataService usdchnDataService;
 
-    @Scheduled(fixedRate = 15000)
-    public void fetchData() {
-        try {
-            System.out.println("Fetching gold data...");
-            goldDataService.fetchAndStoreGoldData();
-            System.out.println("Fetching USD/CNH data...");
-            usdchnDataService.fetchAndStoreUsdchnData();
-        } catch (Exception e) {
-            System.err.println("Error fetching data: " + e.getMessage());
-        }
-    }
+    @Autowired
+    private NvdaStockService nvdaStockService;
+
+//    @Scheduled(fixedRate = 30000)
+//    public void fetchData() {
+//        try {
+//            System.out.println("Fetching gold data...");
+//            goldDataService.fetchAndStoreGoldData();
+//            System.out.println("Fetching USD/CNH data...");
+//            usdchnDataService.fetchAndStoreUsdchnData();
+//        } catch (Exception e) {
+//            System.err.println("Error fetching data: " + e.getMessage());
+//        }
+//    }
 
     @GetMapping("/latest-gold-data")
     public List<GoldData> getLatestGoldData() {
         System.out.println("Accessing latest gold data");
-        return goldDataService.getLatestGoldData(50);
+        return goldDataService.getLatestGoldData(300);
     }
 
     @GetMapping("/latest-usdchn-data")
     public List<UsdchnData> getLatestUsdchnData() {
         System.out.println("Accessing latest usdchn data");
-        return usdchnDataService.getLatestUsdchnData(50);
+        return usdchnDataService.getLatestUsdchnData(300);
+    }
+
+    @GetMapping("/nvda-stocks")
+    public List<NvdaStock> getAllStocks() {
+        return nvdaStockService.getAllStocks();
     }
 }
