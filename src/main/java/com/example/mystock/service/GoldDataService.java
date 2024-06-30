@@ -25,10 +25,6 @@ public class GoldDataService {
         }
     }
 
-    public GoldData getLatestGoldData() {
-        return goldDataRepository.findTopByOrderByTimestampDesc();
-    }
-
     public List<GoldData> getLatestGoldData(int limit) {
         Pageable pageable = PageRequest.of(0, limit);
         return goldDataRepository.findLatestGoldData(pageable);

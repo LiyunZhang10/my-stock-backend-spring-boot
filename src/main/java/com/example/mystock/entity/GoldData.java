@@ -17,6 +17,4 @@ public class GoldData {
 
     @Column(name = "timestamp", columnDefinition = "TIMESTAMP")
     private LocalDateTime timestamp = LocalDateTime.now();
-
-    // Getters and Setters
 }

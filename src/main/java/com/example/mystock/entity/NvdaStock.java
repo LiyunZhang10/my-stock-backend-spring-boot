@@ -27,6 +27,4 @@ public class NvdaStock {
 
     @Column(name = "low_price")
     private BigDecimal lowPrice;
-
-    // Getters and Setters
 }

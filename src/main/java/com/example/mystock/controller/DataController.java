@@ -3,11 +3,13 @@ package com.example.mystock.controller;
 import com.example.mystock.entity.GoldData;
 import com.example.mystock.entity.UsdchnData;
 import com.example.mystock.entity.NvdaStock;
+import com.example.mystock.entity.SgdcnycData;
+import com.example.mystock.service.SgdcnycDataService;
 import com.example.mystock.service.NvdaStockService;
 import com.example.mystock.service.GoldDataService;
 import com.example.mystock.service.UsdchnDataService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +28,9 @@ public class DataController {
     @Autowired
     private NvdaStockService nvdaStockService;
 
+    @Autowired
+    private SgdcnycDataService sgdcnycDataService;
+
 //    @Scheduled(fixedRate = 30000)
 //    public void fetchData() {
 //        try {
@@ -33,6 +38,8 @@ public class DataController {
 //            goldDataService.fetchAndStoreGoldData();
 //            System.out.println("Fetching USD/CNH data...");
 //            usdchnDataService.fetchAndStoreUsdchnData();
+//            System.out.println("Fetching SGD/CNYC data...");
+//            sgdcnycDataService.fetchAndSaveSgdcnycData();
 //        } catch (Exception e) {
 //            System.err.println("Error fetching data: " + e.getMessage());
 //        }
@@ -52,6 +59,13 @@ public class DataController {
 
     @GetMapping("/nvda-stocks")
     public List<NvdaStock> getAllStocks() {
+        System.out.println("Accessing all NVDA stocks");
         return nvdaStockService.getAllStocks();
+    }
+
+    @GetMapping("/latest-sgdcnyc-data")
+    public List<SgdcnycData> getLatestSgdcnycData() {
+        System.out.println("Accessing latest SGD/CNYC data");
+        return sgdcnycDataService.getLatestSgdcnycData();
     }
 }

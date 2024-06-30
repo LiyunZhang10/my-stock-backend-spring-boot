@@ -2,25 +2,34 @@ package com.example.mystock.utils;
 
 import com.example.mystock.entity.GoldData;
 import com.example.mystock.entity.UsdchnData;
+import com.example.mystock.entity.SgdcnycData;
+import com.example.mystock.repository.SgdcnycDataRepository;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.PageLoadStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.time.Duration;
 import java.net.URL;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+@Component
 public class SeleniumUtils {
 
     private static final Logger logger = Logger.getLogger(SeleniumUtils.class.getName());
     private static final String GOLD_URL = "http://quote.eastmoney.com/globalfuture/GC00Y.html";
     private static final String USDCNH_URL = "http://quote.eastmoney.com/forex/USDCNH.html";
+    private static final String SGDCNYC_URL = "http://quote.eastmoney.com/cnyrate/SGDCNYC.html";
     private static final String SELENIUM_GRID_URL = "http://localhost:4444/wd/hub";
+
+    @Autowired
+    private SgdcnycDataRepository sgdcnycDataRepository;
 
     /**
      * 获取黄金数据
@@ -38,6 +47,40 @@ public class SeleniumUtils {
      */
     public static UsdchnData getUsdchnData() {
         return fetchData(USDCNH_URL, "#app div[style=\"background-color:#fff\"] .container .gi_quote.self_clearfix .gi_quote_l.quote_quotenums .zxj span span", "#app div[style=\"background-color:#fff\"] .container .gi_quote.self_clearfix .gi_quote_l.quote_quotenums .zd span:nth-child(2) span", UsdchnData.class);
+    }
+
+    /**
+     * 获取新加坡元兑人民币汇率数据并存入数据库
+     */
+    public void fetchAndSaveSgdcnycData() {
+        WebDriver driver = null;
+        try {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless");
+            options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+            driver = new RemoteWebDriver(new URL(SELENIUM_GRID_URL), options);
+            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+            driver.get(SGDCNYC_URL);
+
+            WebElement medianPriceElement = driver.findElement(By.cssSelector("li:nth-child(1) span:nth-child(2) span:nth-child(1)"));
+            WebElement changeAmountElement = driver.findElement(By.cssSelector("li:nth-child(3) span:nth-child(2) span:nth-child(1)"));
+            WebElement changeAmplitudeElement = driver.findElement(By.cssSelector("li:nth-child(4) span:nth-child(2) span:nth-child(1)"));
+
+            SgdcnycData sgdcnycData = new SgdcnycData();
+            sgdcnycData.setMedianPrice(medianPriceElement.getText());
+            sgdcnycData.setChangeAmount(changeAmountElement.getText());
+            sgdcnycData.setChangeAmplitude(changeAmplitudeElement.getText());
+            sgdcnycData.setTimestamp(LocalDateTime.now());
+
+            sgdcnycDataRepository.save(sgdcnycData);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error fetching data from " + SGDCNYC_URL, e);
+        } finally {
+            if (driver != null) {
+                driver.quit();
+            }
+        }
     }
 
     /**
@@ -74,6 +117,7 @@ public class SeleniumUtils {
                     goldData.setChangeRate(changeRate);
                     goldData.setTimestamp(LocalDateTime.now());
                     return clazz.cast(goldData);
+
                 } else if (clazz.equals(UsdchnData.class)) {
                     UsdchnData usdchnData = new UsdchnData();
                     usdchnData.setPrice(price);

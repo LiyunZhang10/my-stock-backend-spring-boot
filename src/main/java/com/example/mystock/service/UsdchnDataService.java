@@ -25,10 +25,6 @@ public class UsdchnDataService {
         }
     }
 
-    public UsdchnData getLatestUsdchnData() {
-        return usdchnDataRepository.findTopByOrderByTimestampDesc();
-    }
-
     public List<UsdchnData> getLatestUsdchnData(int limit) {
         Pageable pageable = PageRequest.of(0, limit);
         return usdchnDataRepository.findLatestUsdchnData(pageable);
