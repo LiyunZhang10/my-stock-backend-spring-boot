@@ -31,19 +31,19 @@ public class DataController {
     @Autowired
     private SgdcnycDataService sgdcnycDataService;
 
-//    @Scheduled(fixedRate = 30000)
-//    public void fetchData() {
-//        try {
-//            System.out.println("Fetching gold data...");
-//            goldDataService.fetchAndStoreGoldData();
-//            System.out.println("Fetching USD/CNH data...");
-//            usdchnDataService.fetchAndStoreUsdchnData();
-//            System.out.println("Fetching SGD/CNYC data...");
-//            sgdcnycDataService.fetchAndSaveSgdcnycData();
-//        } catch (Exception e) {
-//            System.err.println("Error fetching data: " + e.getMessage());
-//        }
-//    }
+    @Scheduled(fixedRate = 30000)
+    public void fetchData() {
+        try {
+            System.out.println("Fetching gold data...");
+            goldDataService.fetchAndStoreGoldData();
+            System.out.println("Fetching USD/CNH data...");
+            usdchnDataService.fetchAndStoreUsdchnData();
+            System.out.println("Fetching SGD/CNYC data...");
+            sgdcnycDataService.fetchAndSaveSgdcnycData();
+        } catch (Exception e) {
+            System.err.println("Error fetching data: " + e.getMessage());
+        }
+    }
 
     @GetMapping("/latest-gold-data")
     public List<GoldData> getLatestGoldData() {
