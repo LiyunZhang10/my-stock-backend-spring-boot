@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface GoldDataRepository extends JpaRepository<GoldData, Long> {
-    GoldData findTopByOrderByTimestampDesc();
 
     @Query("SELECT g FROM GoldData g ORDER BY g.timestamp DESC")
     List<GoldData> findLatestGoldData(Pageable pageable);
