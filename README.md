@@ -104,31 +104,17 @@
 6. 使用Maven构建项目： `mvn clean install`
 7. 运行Spring Boot应用： `java -jar target/my-stock-0.0.1-SNAPSHOT.jar`
 
-## 🐳 Docker部署
-
-项目包含了Dockerfile，可以将整个应用容器化：
-
-1. 构建Docker镜像： `docker build`
-1. 构建Docker镜像： `docker build -t finance-data-system .`
-2. 运行Docker容器： `docker run -p 8080:8080 finance-data-system`
-
-确保在运行容器之前，已经正确配置了数据库连接信息和其他必要的环境变量。
-
 ## 📈 使用示例
 
 以下是如何使用系统API的简单示例：
 
-1. 获取最新的黄金价格数据：
-GET http://localhost:8080/api/latest-gold-data
+1. 获取最新的黄金价格数据： `GET http://localhost:8080/api/latest-gold-data`
 
-2. 获取最新的美元兑人民币汇率：
-GET http://localhost:8080/api/latest-usdchn-data
+2. 获取最新的美元兑人民币汇率： `GET http://localhost:8080/api/latest-usdchn-data`
 
-3. 获取最新的新加坡元兑人民币汇率：
-GET http://localhost:8080/api/latest-sgdcnyc-data
+3. 获取最新的新加坡元兑人民币汇率： `GET http://localhost:8080/api/latest-sgdcnyc-data`
 
-4. 获取NVIDIA的股票数据：
-GET http://localhost:8080/api/nvda-stocks
+4. 获取NVIDIA的股票数据： `GET http://localhost:8080/api/nvda-stocks`
 
 ## 🛠️ 配置
 
