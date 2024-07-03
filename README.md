@@ -16,10 +16,10 @@
 
 ## 🛠️ 技术栈
 
-- 后端框架：Spring Boot 2.x
+- 后端框架：Spring Boot 2
 - ORM框架：Spring Data JPA
 - 数据库：MySQL 8.0
-- Web自动化：Selenium WebDriver 4.x
+- Web自动化：Selenium WebDriver 4
 - 分布式测试：Selenium Grid
 - 构建工具：Maven
 - 版本控制：Git
@@ -157,11 +157,10 @@ GET http://localhost:8080/api/nvda-stocks
 
 ## 📞 联系方式
 
-项目维护者：[张力匀] - [743478304@qq.com]
+项目维护者：张力匀 - [743478304@qq.com]
 
 项目链接：[https://github.com/yourusername/finance-data-system](https://github.com/yourusername/finance-data-system)
 
 ## 🙏 致谢
 
-- 感谢所有为本项目做出贡献的开发者
 - 特别感谢 [Selenium](https://www.selenium.dev/) 和 [Spring Boot](https://spring.io/projects/spring-boot) 项目
