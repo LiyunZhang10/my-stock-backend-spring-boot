@@ -157,9 +157,9 @@ GET http://localhost:8080/api/nvda-stocks
 
 ## 📞 联系方式
 
-项目维护者：张力匀 - [743478304@qq.com]
+项目维护者：张力匀 - 743478304@qq.com
 
-项目链接：[https://github.com/yourusername/finance-data-system](https://github.com/yourusername/finance-data-system)
+项目链接：[https://github.com/LiyunZhang10/my-stock-backend-spring-boot](https://github.com/LiyunZhang10/my-stock-backend-spring-boot)
 
 ## 🙏 致谢
 
