@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service
 public class NvdaStockService {
+    private final NvdaStockRepository nvdaStockRepository;
+
     @Autowired
-    private NvdaStockRepository nvdaStockRepository;
+    public NvdaStockService(NvdaStockRepository nvdaStockRepository) {
+        this.nvdaStockRepository = nvdaStockRepository;
+    }
 
     public List<NvdaStock> getAllStocks() {
         return nvdaStockRepository.findAll();

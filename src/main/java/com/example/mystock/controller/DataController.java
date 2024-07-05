@@ -9,7 +9,6 @@ import com.example.mystock.service.NvdaStockService;
 import com.example.mystock.service.GoldDataService;
 import com.example.mystock.service.UsdchnDataService;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,31 +18,34 @@ import java.util.List;
 @RequestMapping("/api")
 public class DataController {
 
-    @Autowired
-    private GoldDataService goldDataService;
+    private final GoldDataService goldDataService;
+    private final UsdchnDataService usdchnDataService;
+    private final NvdaStockService nvdaStockService;
+    private final SgdcnycDataService sgdcnycDataService;
 
-    @Autowired
-    private UsdchnDataService usdchnDataService;
-
-    @Autowired
-    private NvdaStockService nvdaStockService;
-
-    @Autowired
-    private SgdcnycDataService sgdcnycDataService;
-
-    @Scheduled(fixedRate = 30000)
-    public void fetchData() {
-        try {
-            System.out.println("Fetching gold data...");
-            goldDataService.fetchAndStoreGoldData();
-            System.out.println("Fetching USD/CNH data...");
-            usdchnDataService.fetchAndStoreUsdchnData();
-            System.out.println("Fetching SGD/CNYC data...");
-            sgdcnycDataService.fetchAndSaveSgdcnycData();
-        } catch (Exception e) {
-            System.err.println("Error fetching data: " + e.getMessage());
-        }
+    public DataController(GoldDataService goldDataService,
+                          UsdchnDataService usdchnDataService,
+                          NvdaStockService nvdaStockService,
+                          SgdcnycDataService sgdcnycDataService) {
+        this.goldDataService = goldDataService;
+        this.usdchnDataService = usdchnDataService;
+        this.nvdaStockService = nvdaStockService;
+        this.sgdcnycDataService = sgdcnycDataService;
     }
+
+//    @Scheduled(fixedRate = 30000)
+//    public void fetchData() {
+//        try {
+//            System.out.println("Fetching gold data...");
+//            goldDataService.fetchAndStoreGoldData();
+//            System.out.println("Fetching USD/CNH data...");
+//            usdchnDataService.fetchAndStoreUsdchnData();
+//            System.out.println("Fetching SGD/CNYC data...");
+//            sgdcnycDataService.fetchAndSaveSgdcnycData();
+//        } catch (Exception e) {
+//            System.err.println("Error fetching data: " + e.getMessage());
+//        }
+//    }
 
     @GetMapping("/latest-gold-data")
     public List<GoldData> getLatestGoldData() {

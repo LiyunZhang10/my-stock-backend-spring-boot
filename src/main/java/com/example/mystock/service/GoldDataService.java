@@ -11,9 +11,12 @@ import java.util.List;
 
 @Service
 public class GoldDataService {
+    private final GoldDataRepository goldDataRepository;
 
     @Autowired
-    private GoldDataRepository goldDataRepository;
+    public GoldDataService(GoldDataRepository goldDataRepository) {
+        this.goldDataRepository = goldDataRepository;
+    }
 
     public void fetchAndStoreGoldData() {
         GoldData goldData = SeleniumUtils.getGoldData();

@@ -28,8 +28,12 @@ public class SeleniumUtils {
     private static final String SGDCNYC_URL = "http://quote.eastmoney.com/cnyrate/SGDCNYC.html";
     private static final String SELENIUM_GRID_URL = "http://localhost:4444/wd/hub";
 
+    private final SgdcnycDataRepository sgdcnycDataRepository;
+
     @Autowired
-    private SgdcnycDataRepository sgdcnycDataRepository;
+    public SeleniumUtils(SgdcnycDataRepository sgdcnycDataRepository) {
+        this.sgdcnycDataRepository = sgdcnycDataRepository;
+    }
 
     /**
      * 获取黄金数据

@@ -12,8 +12,12 @@ import java.util.List;
 @Service
 public class UsdchnDataService {
 
+    private final UsdchnDataRepository usdchnDataRepository;
+
     @Autowired
-    private UsdchnDataRepository usdchnDataRepository;
+    public UsdchnDataService(UsdchnDataRepository usdchnDataRepository) {
+        this.usdchnDataRepository = usdchnDataRepository;
+    }
 
     public void fetchAndStoreUsdchnData() {
         UsdchnData usdchnData = SeleniumUtils.getUsdchnData();

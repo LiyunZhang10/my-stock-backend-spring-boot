@@ -10,12 +10,15 @@ import java.util.List;
 
 @Service
 public class SgdcnycDataService {
+    private final SgdcnycDataRepository sgdcnycDataRepository;
+
+    private final SeleniumUtils seleniumUtils;
 
     @Autowired
-    private SgdcnycDataRepository sgdcnycDataRepository;
-
-    @Autowired
-    private SeleniumUtils seleniumUtils;
+    public SgdcnycDataService(SgdcnycDataRepository sgdcnycDataRepository, SeleniumUtils seleniumUtils) {
+        this.sgdcnycDataRepository = sgdcnycDataRepository;
+        this.seleniumUtils = seleniumUtils;
+    }
 
     public void fetchAndSaveSgdcnycData() {
        seleniumUtils.fetchAndSaveSgdcnycData();
