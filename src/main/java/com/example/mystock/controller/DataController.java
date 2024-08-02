@@ -33,7 +33,7 @@ public class DataController {
         this.sgdcnycDataService = sgdcnycDataService;
     }
 
-//    @Scheduled(fixedRate = 30000)
+//    @Scheduled(fixedRate = 60000)
 //    public void fetchData() {
 //        try {
 //            System.out.println("Fetching gold data...");
