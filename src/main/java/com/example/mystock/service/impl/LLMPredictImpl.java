@@ -32,7 +32,9 @@ public class LLMPredictImpl extends ServiceImpl<NewsDataMapper, NewsData> implem
         //找出近七天的所有资讯
         LocalDateTime oneWeekAgo = LocalDateTime.now().minusDays(7);
         List<NewsData> recentNews = this.lambdaQuery()
-                .eq(NewsData::getStock, stock).gt(NewsData::getNewstime, oneWeekAgo).list();
+                .eq(NewsData::getStock, stock)
+//                .gt(NewsData::getNewstime, oneWeekAgo)
+                .list();
         StringBuffer newsText = new StringBuffer();
         for (NewsData news : recentNews) {
             newsText.append(news.getStock());
