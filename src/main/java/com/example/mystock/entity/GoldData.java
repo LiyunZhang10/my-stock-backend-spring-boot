@@ -1,13 +1,16 @@
 package com.example.mystock.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.TableField;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "gold_data")
+@TableName("gold_data")
 public class GoldData {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,6 +18,6 @@ public class GoldData {
     private Double price;
     private Double changeRate;
 
-    @Column(name = "timestamp", columnDefinition = "TIMESTAMP")
+    @TableField("timestamp")
     private LocalDateTime timestamp = LocalDateTime.now();
 }

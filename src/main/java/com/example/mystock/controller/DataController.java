@@ -53,19 +53,19 @@ public class DataController {
     @GetMapping("/latest-gold-data")
     public List<GoldData> getLatestGoldData() {
         System.out.println("Accessing latest gold data");
-        return goldDataService.getLatestGoldData(300);
+        return goldDataService.getLatestGoldData();
     }
 
     @GetMapping("/latest-ms-data")
     public List<MsData> getLatestMsData() {
         System.out.println("Accessing latest MS data");
-        return msDataService.getLatestMsData(300);
+        return msDataService.getLatestMsData();
     }
 
     @GetMapping("/latest-usdchn-data")
     public List<UsdchnData> getLatestUsdchnData() {
         System.out.println("Accessing latest usdchn data");
-        return usdchnDataService.getLatestUsdchnData(300);
+        return usdchnDataService.getLatestUsdchnData();
     }
 
     @GetMapping("/nvda-stocks")

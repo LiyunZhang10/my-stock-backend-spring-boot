@@ -1,35 +1,49 @@
 package com.example.mystock.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mystock.entity.GoldData;
-import com.example.mystock.repository.GoldDataRepository;
+import com.example.mystock.mapper.GoldDataMapper;
 import com.example.mystock.utils.SeleniumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
 public class GoldDataService {
-    private final GoldDataRepository goldDataRepository;
+    private final GoldDataMapper goldDataMapper;
 
     @Autowired
-    public GoldDataService(GoldDataRepository goldDataRepository) {
-        this.goldDataRepository = goldDataRepository;
+    public GoldDataService(GoldDataMapper goldDataMapper) {
+        this.goldDataMapper = goldDataMapper;
     }
 
     public void fetchAndStoreGoldData() {
         GoldData goldData = SeleniumUtils.getGoldData();
         if (goldData != null) {
-            goldDataRepository.save(goldData);
+            goldDataMapper.insert(goldData);
             System.out.println("Data saved: " + goldData);
         } else {
             System.err.println("Failed to fetch data");
         }
     }
 
-    public List<GoldData> getLatestGoldData(int limit) {
-        Pageable pageable = PageRequest.of(0, limit);
-        return goldDataRepository.findLatestGoldData(pageable);
+    @Transactional
+    public List<GoldData> getLatestGoldData() {
+        // 创建分页对象，1 表示第一页，300 表示每页返回 300 条数据
+        Page<GoldData> page = new Page<>(1, 300); // 只限制最多返回 300 条数据
+
+        // 创建查询条件，按照 timestamp 降序排列
+        QueryWrapper<GoldData> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("timestamp");
+
+        // 分页查询，返回分页结果
+        IPage<GoldData> goldDataPage = goldDataMapper.selectPage(page, queryWrapper);
+
+        // 返回当前页的数据（最多 300 条）
+        return goldDataPage.getRecords();
     }
 }

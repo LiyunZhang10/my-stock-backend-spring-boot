@@ -4,7 +4,7 @@ import com.example.mystock.entity.GoldData;
 import com.example.mystock.entity.MsData;
 import com.example.mystock.entity.UsdchnData;
 import com.example.mystock.entity.SgdcnycData;
-import com.example.mystock.repository.SgdcnycDataRepository;
+import com.example.mystock.mapper.SgdcnycDataMapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,11 +30,11 @@ public class SeleniumUtils {
     private static final String SGDCNYC_URL = "http://quote.eastmoney.com/cnyrate/SGDCNYC.html";
     private static final String SELENIUM_GRID_URL = "http://localhost:4444/wd/hub";
 
-    private final SgdcnycDataRepository sgdcnycDataRepository;
+    private final SgdcnycDataMapper sgdcnycDataMapper;
 
     @Autowired
-    public SeleniumUtils(SgdcnycDataRepository sgdcnycDataRepository) {
-        this.sgdcnycDataRepository = sgdcnycDataRepository;
+    public SeleniumUtils(SgdcnycDataMapper sgdcnycDataMapper) {
+        this.sgdcnycDataMapper = sgdcnycDataMapper;
     }
 
     public static GoldData getGoldData() {
@@ -65,7 +65,7 @@ public class SeleniumUtils {
             sgdcnycData.setChangeAmplitude(changeAmplitudeElement.getText());
             sgdcnycData.setTimestamp(LocalDateTime.now());
 
-            sgdcnycDataRepository.save(sgdcnycData);
+            sgdcnycDataMapper.insert(sgdcnycData); // 使用 MyBatis Plus 插入数据
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error fetching data from " + SGDCNYC_URL, e);
         } finally {

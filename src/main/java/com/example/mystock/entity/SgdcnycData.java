@@ -1,28 +1,30 @@
 package com.example.mystock.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "sgdcnyc_data")
+@TableName
 public class SgdcnycData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "median_price")
+    @TableField("median_price")
     private String medianPrice;
 
-    @Column(name = "change_amount")
+    @TableField("change_amount")
     private String changeAmount;
 
-    @Column(name = "change_amplitude")
+    @TableField("change_amplitude")
     private String changeAmplitude;
 
-    @Column(name = "timestamp", columnDefinition = "TIMESTAMP")
+    @TableField("timestamp")
     private LocalDateTime timestamp;
 
     public int getId() {
