@@ -1,6 +1,7 @@
 package com.example.mystock.utils;
 
 import com.example.mystock.entity.GoldData;
+import com.example.mystock.entity.MsData;
 import com.example.mystock.entity.UsdchnData;
 import com.example.mystock.entity.SgdcnycData;
 import com.example.mystock.repository.SgdcnycDataRepository;
@@ -24,6 +25,7 @@ public class SeleniumUtils {
 
     private static final Logger logger = Logger.getLogger(SeleniumUtils.class.getName());
     private static final String GOLD_URL = "http://quote.eastmoney.com/globalfuture/GC00Y.html";
+    private static final String MS_URL = "https://quote.eastmoney.com/us/MSFT.html";
     private static final String USDCNH_URL = "http://quote.eastmoney.com/forex/USDCNH.html";
     private static final String SGDCNYC_URL = "http://quote.eastmoney.com/cnyrate/SGDCNYC.html";
     private static final String SELENIUM_GRID_URL = "http://localhost:4444/wd/hub";
@@ -37,6 +39,10 @@ public class SeleniumUtils {
 
     public static GoldData getGoldData() {
         return fetchData(GOLD_URL, "div.zxj span span", "body > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(9) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > span:nth-child(1) > span:nth-child(1) > span:nth-child(1)", GoldData.class);
+    }
+
+    public static MsData getMsData() {
+        return fetchData(MS_URL, "div.zxj span span", "div[class=\"quote3l uk_brief\"] span:nth-child(2) span:nth-child(1)", MsData.class);
     }
 
     public static UsdchnData getUsdchnData() {
@@ -92,7 +98,6 @@ public class SeleniumUtils {
 
     private static WebDriver createWebDriver() throws Exception {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         WebDriver driver = new RemoteWebDriver(new URL(SELENIUM_GRID_URL), options);
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
@@ -119,6 +124,12 @@ public class SeleniumUtils {
             usdchnData.setChangeRate(changeRate);
             usdchnData.setTimestamp(LocalDateTime.now());
             return clazz.cast(usdchnData);
+        } else if (clazz.equals(MsData.class)) {
+            MsData msData = new MsData();
+            msData.setPrice(price);
+            msData.setChangeRate(changeRate);
+            msData.setTimestamp(LocalDateTime.now());
+            return clazz.cast(msData);
         }
         throw new IllegalArgumentException("Unsupported class type: " + clazz.getName());
     }
