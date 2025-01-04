@@ -5,6 +5,7 @@ import com.example.mystock.entity.MsData;
 import com.example.mystock.entity.UsdchnData;
 import com.example.mystock.entity.NvdaStock;
 import com.example.mystock.entity.SgdcnycData;
+import com.example.mystock.entity.GoogleStockPrediction;
 import com.example.mystock.service.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,17 +22,20 @@ public class DataController {
     private final UsdchnDataService usdchnDataService;
     private final NvdaStockService nvdaStockService;
     private final SgdcnycDataService sgdcnycDataService;
+    private final GoogleStockPredictionService googleStockPredictionService;
 
     public DataController(GoldDataService goldDataService,
                           MsDataService msDataService,
                           UsdchnDataService usdchnDataService,
                           NvdaStockService nvdaStockService,
-                          SgdcnycDataService sgdcnycDataService) {
+                          SgdcnycDataService sgdcnycDataService,
+                          GoogleStockPredictionService googleStockPredictionService) {
         this.goldDataService = goldDataService;
         this.msDataService = msDataService;
         this.usdchnDataService = usdchnDataService;
         this.nvdaStockService = nvdaStockService;
         this.sgdcnycDataService = sgdcnycDataService;
+        this.googleStockPredictionService = googleStockPredictionService;
     }
 
     @Scheduled(fixedRate = 60000)
@@ -78,5 +82,11 @@ public class DataController {
     public List<SgdcnycData> getLatestSgdcnycData() {
         System.out.println("Accessing latest SGD/CNYC data");
         return sgdcnycDataService.getLatestSgdcnycData();
+    }
+
+    @GetMapping("/google-stock-prediction")
+    public List<GoogleStockPrediction> getGoogleStockPredictions() {
+        System.out.println("Accessing Google stock predictions");
+        return googleStockPredictionService.getLatestGoogleStockPrediction();
     }
 }

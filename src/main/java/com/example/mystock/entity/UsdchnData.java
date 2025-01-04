@@ -2,16 +2,16 @@ package com.example.mystock.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.Data;
 import java.time.LocalDateTime;
 
-@Entity
 @Data
 @TableName("usdchn_data")
 public class UsdchnData {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     private Double price;

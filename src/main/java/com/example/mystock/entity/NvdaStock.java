@@ -2,18 +2,18 @@ package com.example.mystock.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.IdType;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
-@Entity
 @Data
 @TableName("nvda_stock")
 public class NvdaStock {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
+    @TableId(type = IdType.AUTO)
+    private Integer id;
 
     @TableField("date")
     private Date date;
