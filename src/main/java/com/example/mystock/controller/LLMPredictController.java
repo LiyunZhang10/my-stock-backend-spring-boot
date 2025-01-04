@@ -5,6 +5,8 @@ import com.example.mystock.domain.dto.Predict;
 import com.example.mystock.domain.dto.PredictDTO;
 import com.example.mystock.domain.dto.StockDTO;
 import com.example.mystock.service.ILLMPredictService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,13 @@ public class LLMPredictController {
     @Resource
     private ILLMPredictService predictService;
 
-    @PostMapping("/predict")
-    public PredictDTO predict(@RequestBody StockDTO stock) {
-        log.info("stock:{}", stock.getStock());
-        Predict predict = predictService.predict(stock.getStock());
+    @Operation(description = "获取LLM预测结果")
+    @GetMapping("/predict")
+    public PredictDTO predict(
+            @Parameter(description = "股票名称", required = true, example = "谷歌")
+            @RequestParam String stock) {
+        log.info("stock:{}", stock);
+        Predict predict = predictService.predict(stock);
         if(predict == null){
             return new PredictDTO("error");
         }
