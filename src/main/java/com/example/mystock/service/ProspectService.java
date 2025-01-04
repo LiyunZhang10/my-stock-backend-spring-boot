@@ -43,7 +43,7 @@ public class ProspectService {
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("uid", "");
-        jsonObject.addProperty("keyword", "微软");
+        jsonObject.addProperty("keyword", stock);
         JsonArray typeArray = new JsonArray();
         typeArray.add("cmsArticleWebOld");
         jsonObject.add("type", typeArray); // 直接添加JsonArray
@@ -159,7 +159,7 @@ public class ProspectService {
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("uid", "");
-        jsonObject.addProperty("keyword", "微软");
+        jsonObject.addProperty("keyword", stock);
         JsonArray typeArray = new JsonArray();
         typeArray.add("cmsArticleWebOld");
         jsonObject.add("type", typeArray); // 直接添加JsonArray
