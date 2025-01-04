@@ -8,6 +8,4 @@ import java.util.List;
 
 public interface NvdaStockMapper extends BaseMapper<NvdaStock> {
 
-    @Select("SELECT * FROM nvda_stock ORDER BY date")
-    List<NvdaStock> findAll();
 }

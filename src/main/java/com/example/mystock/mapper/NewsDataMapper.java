@@ -5,4 +5,5 @@ import com.example.mystock.entity.NewsData;
 import org.apache.ibatis.annotations.Mapper;
 
 public interface NewsDataMapper extends BaseMapper<NewsData> {
+
 }

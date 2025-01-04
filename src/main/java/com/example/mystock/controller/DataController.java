@@ -1,11 +1,6 @@
 package com.example.mystock.controller;
 
-import com.example.mystock.entity.GoldData;
-import com.example.mystock.entity.MsData;
-import com.example.mystock.entity.UsdchnData;
-import com.example.mystock.entity.NvdaStock;
-import com.example.mystock.entity.SgdcnycData;
-import com.example.mystock.entity.GoogleStockPrediction;
+import com.example.mystock.entity.*;
 import com.example.mystock.service.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,7 +70,7 @@ public class DataController {
     @GetMapping("/nvda-stocks")
     public List<NvdaStock> getAllStocks() {
         System.out.println("Accessing all NVDA stocks");
-        return nvdaStockService.getAllStocks();
+        return nvdaStockService.getNvdaStock();
     }
 
     @GetMapping("/latest-sgdcnyc-data")

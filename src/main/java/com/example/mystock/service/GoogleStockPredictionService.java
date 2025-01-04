@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class GoogleStockPredictionService extends ServiceImpl<GoogleStockPredictionMapper, GoogleStockPrediction> {
 
-    private GoogleStockPredictionMapper googleStockPredictionMapper;
+    private final GoogleStockPredictionMapper googleStockPredictionMapper;
 
     @Autowired
     public GoogleStockPredictionService(GoogleStockPredictionMapper googleStockPredictionMapper) {

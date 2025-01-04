@@ -3,23 +3,28 @@ package com.example.mystock.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("google_stock_prediction")  // 映射数据库表
+@TableName("google_stock_prediction")
+@Schema(description = "谷歌股票预测实体")
 public class GoogleStockPrediction {
 
-    @TableId(type = IdType.AUTO)  // 设置主键自增
-    private Long id;  // 自动生成的主键
+    @Schema(description = "主键", example = "1")
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-    private Double price;  // 股票价格
+    @Schema(description = "股票价格", example = "1.0")
+    private Double price;
 
-    private PredictionType type;  // 类型 (past 或 predict)
+    @Schema(description = "类型", example = "past or predict")
+    private PredictionType type;
 
-    private LocalDateTime timestamp;  // 时间戳
+    @Schema(description = "时间戳", example = "2021-07-01T00:00:00")
+    private LocalDateTime timestamp;
 
-    // 枚举类型，表示数据类型
     public enum PredictionType {
         past,
         predict
