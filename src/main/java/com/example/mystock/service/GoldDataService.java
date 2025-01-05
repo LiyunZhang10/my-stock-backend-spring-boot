@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mystock.entity.GoldData;
 import com.example.mystock.mapper.GoldDataMapper;
 import com.example.mystock.utils.SeleniumUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class GoldDataService {
     private final GoldDataMapper goldDataMapper;
@@ -25,9 +27,9 @@ public class GoldDataService {
         GoldData goldData = SeleniumUtils.getGoldData();
         if (goldData != null) {
             goldDataMapper.insert(goldData);
-            System.out.println("Data saved: " + goldData);
+            log.info("Data saved: " + goldData);
         } else {
-            System.err.println("Failed to fetch data");
+            log.error("Failed to fetch data");
         }
     }
 

@@ -5,6 +5,7 @@ import com.example.mystock.entity.MsData;
 import com.example.mystock.entity.UsdchnData;
 import com.example.mystock.entity.SgdcnycData;
 import com.example.mystock.mapper.SgdcnycDataMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+@Slf4j
 @Component
 public class SeleniumUtils {
 
@@ -66,6 +68,7 @@ public class SeleniumUtils {
             sgdcnycData.setTimestamp(LocalDateTime.now());
 
             sgdcnycDataMapper.insert(sgdcnycData); // 使用 MyBatis Plus 插入数据
+            log.info("Data Saved: {}", sgdcnycData);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error fetching data from " + SGDCNYC_URL, e);
         } finally {

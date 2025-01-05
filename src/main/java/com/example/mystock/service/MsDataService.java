@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mystock.utils.SeleniumUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class MsDataService {
     private final MsDataMapper msDataMapper;
@@ -25,9 +27,9 @@ public class MsDataService {
         MsData msData = SeleniumUtils.getMsData();
         if (msData != null) {
             msDataMapper.insert(msData);
-            System.out.println("Data saved: " + msData);
+            log.info("Data saved: " + msData);
         } else {
-            System.err.println("Failed to fetch data");
+            log.error("Failed to fetch data");
         }
     }
 

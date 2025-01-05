@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/prospect")
@@ -27,7 +25,7 @@ public class ProspectController {
             @Parameter(description = "股票名称", required = true, example = "谷歌")
             @RequestParam String stock) throws IOException {
         NewsResult news = prospectService.positiveNews(stock);
-        if(news.getNews() == null || news.getNews().isEmpty()){
+        if(news == null || news.getNews() == null || news.getNews().isEmpty()){
             return new NewsResult("empty", null);
         }else{
             return news;
@@ -41,7 +39,7 @@ public class ProspectController {
             @RequestParam String stock)
     {
         NewsResult news = prospectService.negativeNews(stock);
-        if(news.getNews() == null || news.getNews().isEmpty()){
+        if(news == null || news.getNews() == null || news.getNews().isEmpty()){
             return new NewsResult("empty", null);
         }else{
             return news;

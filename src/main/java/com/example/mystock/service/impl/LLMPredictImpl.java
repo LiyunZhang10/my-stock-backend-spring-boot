@@ -10,15 +10,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import jakarta.annotation.Resource;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.example.mystock.utils.CommandConstant.PROMPT_LAST;
@@ -96,7 +92,7 @@ public class LLMPredictImpl extends ServiceImpl<NewsDataMapper, NewsData> implem
                 .addQueryParameter("param", jsonString)
                 .addQueryParameter("_", "1733658609092") // 时间戳
                 .build();
-        System.out.println(url.toString());
+//        System.out.println(url.toString());
 //        String jsonString = "{\"uid\":\"\",\"keyword\":\"微软\",\"type\":[\"cmsArticleWebOld\"],\"client\":\"web\",\"clientType\":\"web\",\"clientVersion\":\"curr\",\"param\":{\"cmsArticleWebOld\":{\"searchScope\":\"default\",\"sort\":\"default\",\"pageIndex\":1,\"pageSize\":10,\"preTag\":\"<em>\",\"postTag\":\"</em>\"}}}";
 //
 //        // Convert JSON string to URL encoded string
@@ -111,7 +107,8 @@ public class LLMPredictImpl extends ServiceImpl<NewsDataMapper, NewsData> implem
         try (Response response = client.newCall(request1).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
             responseBody = response.body().string();
-            System.out.println(responseBody);
+//            System.out.println(responseBody);
+            log.info(responseBody);
         }catch (Exception e){
             e.printStackTrace();
         }

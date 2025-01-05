@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mystock.entity.UsdchnData;
 import com.example.mystock.mapper.UsdchnDataMapper;
 import com.example.mystock.utils.SeleniumUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class UsdchnDataService {
 
@@ -26,9 +28,9 @@ public class UsdchnDataService {
         UsdchnData usdchnData = SeleniumUtils.getUsdchnData();
         if (usdchnData != null) {
             usdchnDataMapper.insert(usdchnData);
-            System.out.println("Data saved: " + usdchnData);
+            log.info("Data saved: " + usdchnData);
         } else {
-            System.err.println("Failed to fetch data");
+            log.error("Failed to fetch data");
         }
     }
 
