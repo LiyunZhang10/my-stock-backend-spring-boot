@@ -79,7 +79,7 @@ public class ProspectService {
                 .addQueryParameter("param", jsonString)
                 .addQueryParameter("_", "1733658609092") // 时间戳
                 .build();
-        System.out.println(url.toString());
+//        System.out.println(url.toString());
 //        String jsonString = "{\"uid\":\"\",\"keyword\":\"微软\",\"type\":[\"cmsArticleWebOld\"],\"client\":\"web\",\"clientType\":\"web\",\"clientVersion\":\"curr\",\"param\":{\"cmsArticleWebOld\":{\"searchScope\":\"default\",\"sort\":\"default\",\"pageIndex\":1,\"pageSize\":10,\"preTag\":\"<em>\",\"postTag\":\"</em>\"}}}";
 //
 //        // Convert JSON string to URL encoded string
@@ -94,7 +94,8 @@ public class ProspectService {
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
             responseBody = response.body().string();
-            System.out.println(responseBody);
+//            System.out.println(responseBody);
+            log.info(responseBody);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -111,7 +112,7 @@ public class ProspectService {
         // 将 result 转换为 JSON 字符串
         String resultNewsString = resultObject.toString();
 
-        System.out.println(resultNewsString);
+//        System.out.println(resultNewsString);
         StringBuffer sb = new StringBuffer();
         sb.append(resultNewsString);
         sb.append("根据以上资讯，请输出对").append(stock).append("公司股价有利的利好资讯。");
@@ -195,7 +196,7 @@ public class ProspectService {
                 .addQueryParameter("param", jsonString)
                 .addQueryParameter("_", "1733658609092") // 时间戳
                 .build();
-        System.out.println(url.toString());
+//        System.out.println(url.toString());
 //        String jsonString = "{\"uid\":\"\",\"keyword\":\"微软\",\"type\":[\"cmsArticleWebOld\"],\"client\":\"web\",\"clientType\":\"web\",\"clientVersion\":\"curr\",\"param\":{\"cmsArticleWebOld\":{\"searchScope\":\"default\",\"sort\":\"default\",\"pageIndex\":1,\"pageSize\":10,\"preTag\":\"<em>\",\"postTag\":\"</em>\"}}}";
 //
 //        // Convert JSON string to URL encoded string
@@ -210,7 +211,8 @@ public class ProspectService {
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
             responseBody = response.body().string();
-            System.out.println(responseBody);
+//            System.out.println(responseBody);
+            log.info(responseBody);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -227,7 +229,7 @@ public class ProspectService {
         // 将 result 转换为 JSON 字符串
         String resultNewsString = resultObject.toString();
 
-        System.out.println(resultNewsString);
+//        System.out.println(resultNewsString);
         StringBuffer sb = new StringBuffer();
         sb.append(resultNewsString);
         sb.append("根据以上资讯，请输出对").append(stock).append("公司股价不利的利空资讯。");

@@ -2,12 +2,14 @@ package com.example.mystock.controller;
 
 import com.example.mystock.entity.*;
 import com.example.mystock.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class DataController {
@@ -36,52 +38,52 @@ public class DataController {
     @Scheduled(fixedRate = 60000)
     public void fetchData() {
         try {
-            System.out.println("Fetching gold data...");
+            log.info("Fetching gold data...");
             goldDataService.fetchAndStoreGoldData();
-            System.out.println("Fetching MS stocks...");
+            log.info("Fetching MS stocks...");
             msDataService.fetchAndStoreMsData();
-            System.out.println("Fetching USD/CNH data...");
+            log.info("Fetching USD/CNH data...");
             usdchnDataService.fetchAndStoreUsdchnData();
-            System.out.println("Fetching SGD/CNYC data...");
+            log.info("Fetching SGD/CNYC data...");
             sgdcnycDataService.fetchAndSaveSgdcnycData();
         } catch (Exception e) {
-            System.err.println("Error fetching data: " + e.getMessage());
+            log.error("Error fetching data: {}", e.getMessage());
         }
     }
 
     @GetMapping("/latest-gold-data")
     public List<GoldData> getLatestGoldData() {
-        System.out.println("Accessing latest gold data");
+        log.info("Accessing latest gold data");
         return goldDataService.getLatestGoldData();
     }
 
     @GetMapping("/latest-ms-data")
     public List<MsData> getLatestMsData() {
-        System.out.println("Accessing latest MS data");
+        log.info("Accessing latest MS data");
         return msDataService.getLatestMsData();
     }
 
     @GetMapping("/latest-usdchn-data")
     public List<UsdchnData> getLatestUsdchnData() {
-        System.out.println("Accessing latest usdchn data");
+        log.info("Accessing latest usdchn data");
         return usdchnDataService.getLatestUsdchnData();
     }
 
     @GetMapping("/nvda-stocks")
     public List<NvdaStock> getAllStocks() {
-        System.out.println("Accessing all NVDA stocks");
+        log.info("Accessing all NVDA stocks");
         return nvdaStockService.getNvdaStock();
     }
 
     @GetMapping("/latest-sgdcnyc-data")
     public List<SgdcnycData> getLatestSgdcnycData() {
-        System.out.println("Accessing latest SGD/CNYC data");
+        log.info("Accessing latest SGD/CNYC data");
         return sgdcnycDataService.getLatestSgdcnycData();
     }
 
     @GetMapping("/google-stock-prediction")
     public List<GoogleStockPrediction> getGoogleStockPredictions() {
-        System.out.println("Accessing Google stock predictions");
+        log.info("Accessing Google stock predictions");
         return googleStockPredictionService.getLatestGoogleStockPrediction();
     }
 }

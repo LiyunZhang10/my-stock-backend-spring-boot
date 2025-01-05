@@ -3,7 +3,6 @@ package com.example.mystock.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.example.mystock.domain.dto.Predict;
 import com.example.mystock.domain.dto.PredictDTO;
-import com.example.mystock.domain.dto.StockDTO;
 import com.example.mystock.service.ILLMPredictService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
